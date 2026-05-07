@@ -332,10 +332,46 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none;
 }
 
+.hero__layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 48rem;
+}
+
+.hero__visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__product-img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 40px oklch(22% 0.06 285 / 0.1),
+    0 2px 8px oklch(22% 0.06 285 / 0.06);
+  background: var(--surface);
+  padding: var(--space-md);
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .hero__layout {
+    grid-template-columns: 1fr;
+  }
+  .hero__visual {
+    order: -1;
+    max-width: 320px;
+    margin-inline: auto;
+  }
 }
 
 .hero__eyebrow {
@@ -603,6 +639,13 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.7;
 }
 
+.about__factory-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 280px;
+}
+
 @media (max-width: 768px) {
   .about__grid {
     grid-template-columns: 1fr;
@@ -624,33 +667,49 @@ a { color: inherit; text-decoration: none; }
 
 .product-card {
   background: var(--bg);
-  padding: var(--space-lg);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
   transition: background var(--duration-fast);
   cursor: default;
+  overflow: hidden;
 }
 
 .product-card:hover {
   background: var(--purple-wash);
 }
 
-.product-card__icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 8px;
-  background: var(--gold-wash);
-  display: grid;
-  place-items: center;
-  font-size: 1.2rem;
-  color: var(--gold-deep);
+.product-card:hover .product-card__img img {
+  transform: scale(1.05);
+}
+
+.product-card__img {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.product-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 400ms var(--ease-out-quart);
+}
+
+.product-card__body {
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
 }
 
 .product-card__name {
   font-weight: 600;
   font-size: 1rem;
   color: var(--ink);
+  margin-bottom: 0.25rem;
 }
 
 .product-card__desc {
@@ -1054,6 +1113,7 @@ a { color: inherit; text-decoration: none; }
 <!-- ════════════════ HERO ════════════════ -->
 <section class="hero">
   <div class="container">
+    <div class="hero__layout">
     <div class="hero__content">
       <p class="hero__eyebrow reveal">Since 1987</p>
       <h1 class="hero__title reveal reveal-delay-1">
@@ -1072,6 +1132,10 @@ a { color: inherit; text-decoration: none; }
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
       </div>
+    </div>
+    <div class="hero__visual reveal reveal-delay-3">
+      <img src="images/_MG_0062.jpg" alt="雅信精密鑄造產品" class="hero__product-img">
+    </div>
     </div>
   </div>
 </section>
@@ -1107,6 +1171,9 @@ a { color: inherit; text-decoration: none; }
       <p class="section__eyebrow">About Us</p>
       <h2 class="section__title">雅致脫俗，信譽保證</h2>
       <p class="section__desc">雅信鑄造自 1987 年創立以來，以脫蠟鑄造法精密生產各式零件，持續精進品質與技術，建構完整的生產體系。</p>
+    </div>
+    <div class="about__factory reveal" style="margin-bottom: var(--space-2xl);">
+      <img src="images/sample4.jpg" alt="雅信精密鑄造廠房" class="about__factory-img">
     </div>
     <div class="about__grid">
       <div class="about__timeline reveal">
@@ -1175,44 +1242,60 @@ a { color: inherit; text-decoration: none; }
     </div>
     <div class="products__grid">
       <div class="product-card reveal">
-        <div class="product-card__icon">&#9881;</div>
-        <div class="product-card__name">機械零件</div>
-        <div class="product-card__desc">精密機械用鑄造零組件，高尺寸精度與表面品質</div>
+        <div class="product-card__img"><img src="images/product8.jpg" alt="機械零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">機械零件</div>
+          <div class="product-card__desc">精密機械用鑄造零組件，高尺寸精度與表面品質</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-1">
-        <div class="product-card__icon">&#9951;</div>
-        <div class="product-card__name">汽機車零件</div>
-        <div class="product-card__desc">引擎、傳動及底盤系統精密鑄件</div>
+        <div class="product-card__img"><img src="images/product3.jpg" alt="汽機車零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">汽機車零件</div>
+          <div class="product-card__desc">引擎、傳動及底盤系統精密鑄件</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-2">
-        <div class="product-card__icon">&#9764;</div>
-        <div class="product-card__name">武器國防零件</div>
-        <div class="product-card__desc">符合嚴格規格的國防等級零組件</div>
+        <div class="product-card__img"><img src="images/product4.jpg" alt="武器國防零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">武器國防零件</div>
+          <div class="product-card__desc">符合嚴格規格的國防等級零組件</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-3">
-        <div class="product-card__icon">&#9878;</div>
-        <div class="product-card__name">閥類零件</div>
-        <div class="product-card__desc">泵浦、壓縮機閥及各式流體控制元件</div>
+        <div class="product-card__img"><img src="images/product7.jpg" alt="閥類零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">閥類零件</div>
+          <div class="product-card__desc">泵浦、壓縮機閥及各式流體控制元件</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-4">
-        <div class="product-card__icon">&#9874;</div>
-        <div class="product-card__name">五金零件</div>
-        <div class="product-card__desc">高精度五金鑄造件，廣泛應用於各產業</div>
+        <div class="product-card__img"><img src="images/product2.jpg" alt="五金零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">五金零件</div>
+          <div class="product-card__desc">高精度五金鑄造件，廣泛應用於各產業</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-5">
-        <div class="product-card__icon">&#8802;</div>
-        <div class="product-card__name">氣動工具零件</div>
-        <div class="product-card__desc">氣動工具核心部件，耐磨耐用</div>
+        <div class="product-card__img"><img src="images/product5.jpg" alt="氣動工具零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">氣動工具零件</div>
+          <div class="product-card__desc">氣動工具核心部件，耐磨耐用</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-6">
-        <div class="product-card__icon">&#10070;</div>
-        <div class="product-card__name">針車零件</div>
-        <div class="product-card__desc">縫紉機械用高精度鑄造零件</div>
+        <div class="product-card__img"><img src="images/product6.jpg" alt="針車零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">針車零件</div>
+          <div class="product-card__desc">縫紉機械用高精度鑄造零件</div>
+        </div>
       </div>
       <div class="product-card reveal reveal-delay-7">
-        <div class="product-card__icon">&#10023;</div>
-        <div class="product-card__name">工藝品零件</div>
-        <div class="product-card__desc">精緻工藝品鑄造，兼具美感與精度</div>
+        <div class="product-card__img"><img src="images/product1.jpg" alt="工藝品零件" loading="lazy"></div>
+        <div class="product-card__body">
+          <div class="product-card__name">工藝品零件</div>
+          <div class="product-card__desc">精緻工藝品鑄造，兼具美感與精度</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1283,10 +1366,10 @@ a { color: inherit; text-decoration: none; }
     </div>
 
     <div class="certs-row reveal reveal-delay-1">
-      <span class="cert-badge">
+      <a href="images/ISO9001.png" target="_blank" class="cert-badge" style="text-decoration:none;">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        ISO 9001 認證
-      </span>
+        ISO 9001 認證（點擊查看證書）
+      </a>
     </div>
 
     <div class="equipment__list reveal reveal-delay-2" style="margin-top: var(--space-2xl);">
