@@ -153,15 +153,15 @@ a { color: inherit; text-decoration: none; }
 .nav__logo {
   width: 2rem;
   height: 2rem;
-  background: var(--purple-mid);
   border-radius: 6px;
-  display: grid;
-  place-items: center;
-  color: var(--gold-bright);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .nav__name {
@@ -639,13 +639,6 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.7;
 }
 
-.about__factory-img {
-  width: 100%;
-  border-radius: 12px;
-  object-fit: cover;
-  max-height: 280px;
-}
-
 @media (max-width: 768px) {
   .about__grid {
     grid-template-columns: 1fr;
@@ -1090,7 +1083,7 @@ a { color: inherit; text-decoration: none; }
 <nav class="nav" id="nav">
   <div class="nav__inner container">
     <a href="#" class="nav__brand">
-      <div class="nav__logo">雅</div>
+      <div class="nav__logo"><img src="images/ys.png" alt="雅信 Logo"></div>
       <div class="nav__name">
         雅信精密鑄造
         <span>Yea Shinn Precision Casting</span>
@@ -1171,9 +1164,6 @@ a { color: inherit; text-decoration: none; }
       <p class="section__eyebrow">About Us</p>
       <h2 class="section__title">雅致脫俗，信譽保證</h2>
       <p class="section__desc">雅信鑄造自 1987 年創立以來，以脫蠟鑄造法精密生產各式零件，持續精進品質與技術，建構完整的生產體系。</p>
-    </div>
-    <div class="about__factory reveal" style="margin-bottom: var(--space-2xl);">
-      <img src="images/sample4.jpg" alt="雅信精密鑄造廠房" class="about__factory-img">
     </div>
     <div class="about__grid">
       <div class="about__timeline reveal">
