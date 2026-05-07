@@ -851,37 +851,47 @@ a { color: inherit; text-decoration: none; }
 }
 
 .equip-item {
-  text-align: center;
-  padding: var(--space-lg) var(--space-md);
-  background: oklch(26% 0.06 280);
   border-radius: 10px;
-  transition: transform var(--duration-fast), background var(--duration-fast);
+  overflow: hidden;
+  background: oklch(26% 0.06 280);
+  transition: transform var(--duration-fast);
 }
 
 .equip-item:hover {
   transform: translateY(-3px);
-  background: oklch(30% 0.08 278);
 }
 
-.equip-item__icon {
-  font-size: 1.8rem;
-  margin-bottom: var(--space-sm);
-  color: var(--gold-bright);
+.equip-item__photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
 }
 
-.equip-item__icon svg {
-  stroke: var(--gold-bright);
+.equip-item__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--ease-out-quart);
+}
+
+.equip-item:hover .equip-item__photo img {
+  transform: scale(1.05);
+}
+
+.equip-item__body {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  text-align: center;
 }
 
 .equip-item__name {
   font-weight: 600;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: oklch(92% 0.01 278);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .equip-item__desc {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: oklch(62% 0.02 278);
 }
 
@@ -892,7 +902,7 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 480px) {
   .equipment__list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1382,39 +1392,39 @@ a { color: inherit; text-decoration: none; }
 
     <div class="equipment__list reveal reveal-delay-2" style="margin-top: var(--space-2xl);">
       <div class="equip-item">
-        <div class="equip-item__icon">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div class="equip-item__photo"><img src="images/1.jpg" alt="分光儀" loading="lazy"></div>
+        <div class="equip-item__body">
+          <div class="equip-item__name">分光儀</div>
+          <div class="equip-item__desc">材質成分精密分析</div>
         </div>
-        <div class="equip-item__name">分光儀</div>
-        <div class="equip-item__desc">材質成分精密分析</div>
       </div>
       <div class="equip-item">
-        <div class="equip-item__icon">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <div class="equip-item__photo"><img src="images/2.jpg" alt="立式投影機" loading="lazy"></div>
+        <div class="equip-item__body">
+          <div class="equip-item__name">立式投影機</div>
+          <div class="equip-item__desc">外觀尺寸量測</div>
         </div>
-        <div class="equip-item__name">立式投影機</div>
-        <div class="equip-item__desc">外觀尺寸量測</div>
       </div>
       <div class="equip-item">
-        <div class="equip-item__icon">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10"/><path d="M9 16v4"/><path d="M15 16v4"/></svg>
+        <div class="equip-item__photo"><img src="images/3.jpg" alt="臥式投影機" loading="lazy"></div>
+        <div class="equip-item__body">
+          <div class="equip-item__name">臥式投影機</div>
+          <div class="equip-item__desc">輪廓精密比對</div>
         </div>
-        <div class="equip-item__name">臥式投影機</div>
-        <div class="equip-item__desc">輪廓精密比對</div>
       </div>
       <div class="equip-item">
-        <div class="equip-item__icon">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <div class="equip-item__photo"><img src="images/4.jpg" alt="硬度機" loading="lazy"></div>
+        <div class="equip-item__body">
+          <div class="equip-item__name">硬度機</div>
+          <div class="equip-item__desc">材料硬度測試</div>
         </div>
-        <div class="equip-item__name">硬度機</div>
-        <div class="equip-item__desc">材料硬度測試</div>
       </div>
       <div class="equip-item">
-        <div class="equip-item__icon">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        <div class="equip-item__photo"><img src="images/5.jpg" alt="電子顯微鏡" loading="lazy"></div>
+        <div class="equip-item__body">
+          <div class="equip-item__name">電子顯微鏡</div>
+          <div class="equip-item__desc">微觀結構觀察</div>
         </div>
-        <div class="equip-item__name">電子顯微鏡</div>
-        <div class="equip-item__desc">微觀結構觀察</div>
       </div>
     </div>
   </div>
