@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雅信精密鑄造 — Yea Shinn Precision Casting</title>
+<meta name="description" content="雅信精密鑄造，自1987年起專注脫蠟精密鑄造，ISO 9001認證，服務全球客戶。不銹鋼、碳鋼、合金鋼精密零件製造。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════ */
+:root {
+  /* Purple spectrum — tinted toward indigo, not pink */
+  --purple-deep: oklch(22% 0.06 285);
+  --purple-dark: oklch(30% 0.12 280);
+  --purple-mid: oklch(42% 0.16 278);
+  --purple-base: oklch(50% 0.18 275);
+  --purple-light: oklch(72% 0.10 278);
+  --purple-wash: oklch(94% 0.02 278);
+  --purple-faint: oklch(97% 0.01 278);
+
+  /* Gold spectrum — warm, metallic, earned */
+  --gold-deep: oklch(45% 0.12 75);
+  --gold-base: oklch(72% 0.15 80);
+  --gold-bright: oklch(82% 0.14 82);
+  --gold-light: oklch(90% 0.06 80);
+  --gold-wash: oklch(96% 0.02 80);
+
+  /* Tinted neutrals — purple-hinted grays */
+  --ink: oklch(18% 0.02 278);
+  --text: oklch(30% 0.02 278);
+  --text-secondary: oklch(50% 0.02 278);
+  --border: oklch(88% 0.01 278);
+  --surface: oklch(98% 0.005 278);
+  --bg: oklch(99.5% 0.003 278);
+
+  /* Spacing scale */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --space-md: clamp(1rem, 2vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 3vw, 2.5rem);
+  --space-xl: clamp(2.5rem, 5vw, 4rem);
+  --space-2xl: clamp(4rem, 8vw, 7rem);
+  --space-3xl: clamp(6rem, 12vw, 10rem);
+
+  /* Typography */
+  --font-display: 'Fraunces', 'Noto Sans TC', serif;
+  --font-body: 'Noto Sans TC', 'DM Sans', sans-serif;
+  --font-label: 'DM Sans', 'Noto Sans TC', sans-serif;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-enter: 600ms;
+  --duration-fast: 150ms;
+}
+
+/* ═══════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: clamp(0.95rem, 1vw + 0.5rem, 1.1rem);
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════ */
+.container {
+  width: min(72rem, 100% - var(--space-lg) * 2);
+  margin-inline: auto;
+}
+
+.container--narrow {
+  width: min(56rem, 100% - var(--space-lg) * 2);
+  margin-inline: auto;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL ANIMATIONS
+   ═══════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: opacity var(--duration-enter) var(--ease-out-expo),
+              transform var(--duration-enter) var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+.reveal-delay-5 { transition-delay: 400ms; }
+.reveal-delay-6 { transition-delay: 480ms; }
+.reveal-delay-7 { transition-delay: 560ms; }
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: oklch(99.5% 0.003 278 / 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 300ms var(--ease-out-quart);
+}
+
+.nav.scrolled {
+  box-shadow: 0 1px 16px oklch(22% 0.06 285 / 0.06);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: clamp(3.5rem, 5vw, 4.5rem);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav__logo {
+  width: 2rem;
+  height: 2rem;
+  background: var(--purple-mid);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.nav__name {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.nav__name span {
+  display: block;
+  font-weight: 400;
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  list-style: none;
+}
+
+.nav__links a {
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  transition: color var(--duration-fast);
+  position: relative;
+}
+
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--purple-base);
+  transition: width 300ms var(--ease-out-expo);
+}
+
+.nav__links a:hover { color: var(--ink); }
+.nav__links a:hover::after { width: 100%; }
+
+.nav__cta {
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--purple-faint) !important;
+  background: var(--purple-mid);
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  transition: background var(--duration-fast), transform var(--duration-fast);
+}
+
+.nav__cta::after { display: none !important; }
+.nav__cta:hover { background: var(--purple-dark); transform: translateY(-1px); color: var(--purple-faint) !important; }
+
+.nav__mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.nav__mobile-toggle span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform 300ms var(--ease-out-expo), opacity 200ms;
+  transform-origin: center;
+}
+
+.nav__mobile-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav__mobile-toggle.open span:nth-child(2) { opacity: 0; }
+.nav__mobile-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .nav__links { display: none; }
+  .nav__mobile-toggle { display: flex; }
+
+  .nav__links.mobile-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: oklch(99.5% 0.003 278 / 0.97);
+    backdrop-filter: blur(20px);
+    padding: var(--space-md);
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+    animation: slideDown 400ms var(--ease-out-expo);
+  }
+
+  .nav__links.mobile-open a {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .nav__links.mobile-open a:hover {
+    background: var(--purple-wash);
+  }
+
+  .nav__cta {
+    text-align: center;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.2rem;
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════ */
+.hero {
+  padding-top: clamp(7rem, 14vw, 11rem);
+  padding-bottom: var(--space-3xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -15%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(90% 0.06 278 / 0.3), transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -10%;
+  width: 40vw;
+  height: 40vw;
+  max-width: 500px;
+  max-height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(90% 0.08 80 / 0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 48rem;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple-base);
+  margin-bottom: var(--space-md);
+}
+
+.hero__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw + 0.5rem, 4rem);
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+}
+
+.hero__title em {
+  font-style: normal;
+  color: var(--purple-mid);
+}
+
+.hero__sub {
+  font-size: clamp(1rem, 1.2vw + 0.5rem, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 36rem;
+  line-height: 1.8;
+  margin-bottom: var(--space-xl);
+  font-weight: 300;
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  background: var(--purple-mid);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background var(--duration-fast), transform var(--duration-fast);
+}
+
+.btn-primary:hover {
+  background: var(--purple-dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color var(--duration-fast), color var(--duration-fast);
+}
+
+.btn-secondary:hover {
+  border-color: var(--purple-light);
+  color: var(--purple-mid);
+}
+
+/* ═══════════════════════════════════════
+   TRUST BAR
+   ═══════════════════════════════════════ */
+.trust {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+.trust__item-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--purple-mid);
+  line-height: 1.1;
+}
+
+.trust__item-label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+  font-weight: 400;
+}
+
+@media (max-width: 640px) {
+  .trust__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg) var(--space-md);
+  }
+}
+
+/* ═══════════════════════════════════════
+   SECTION SHARED
+   ═══════════════════════════════════════ */
+.section {
+  padding: var(--space-3xl) 0;
+}
+
+.section--alt {
+  background: var(--surface);
+}
+
+.section--dark {
+  background: var(--purple-deep);
+  color: oklch(90% 0.01 278);
+}
+
+.section--dark .section__eyebrow { color: var(--gold-base); }
+.section--dark .section__title { color: oklch(96% 0.01 278); }
+.section--dark .section__desc { color: oklch(72% 0.02 278); }
+
+.section__eyebrow {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple-base);
+  margin-bottom: var(--space-sm);
+}
+
+.section__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw + 0.3rem, 2.4rem);
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-sm);
+}
+
+.section__desc {
+  font-size: clamp(0.95rem, 1vw + 0.4rem, 1.1rem);
+  color: var(--text-secondary);
+  max-width: 40rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.section__header {
+  margin-bottom: var(--space-2xl);
+}
+
+/* ═══════════════════════════════════════
+   ABOUT / CAPABILITIES
+   ═══════════════════════════════════════ */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.about__timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+
+.timeline-item__year {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--purple-mid);
+}
+
+.timeline-item__text {
+  font-size: 0.95rem;
+  color: var(--text);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-item:last-child .timeline-item__text {
+  border-bottom: none;
+}
+
+.about__values {
+  background: var(--purple-wash);
+  border-radius: 12px;
+  padding: var(--space-xl);
+}
+
+.about__values-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: var(--space-lg);
+}
+
+.value-item {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.value-item + .value-item {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid oklch(88% 0.02 278);
+}
+
+.value-item__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: var(--purple-mid);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--gold-bright);
+  font-size: 1.1rem;
+}
+
+.value-item__content h4 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.value-item__content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+/* ═══════════════════════════════════════
+   PRODUCTS
+   ═══════════════════════════════════════ */
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.product-card {
+  background: var(--bg);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: background var(--duration-fast);
+  cursor: default;
+}
+
+.product-card:hover {
+  background: var(--purple-wash);
+}
+
+.product-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: var(--gold-wash);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  color: var(--gold-deep);
+}
+
+.product-card__name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.product-card__desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .products__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .products__grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════
+   MATERIALS
+   ═══════════════════════════════════════ */
+.materials__row {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-xl);
+}
+
+.material-tag {
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.6rem 1.4rem;
+  border-radius: 100px;
+  border: 1.5px solid oklch(50% 0.04 278 / 0.3);
+  color: oklch(85% 0.02 278);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+
+.material-tag:hover {
+  border-color: var(--gold-base);
+  background: oklch(50% 0.06 80 / 0.1);
+}
+
+/* ═══════════════════════════════════════
+   PROCESS
+   ═══════════════════════════════════════ */
+.process__steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: var(--space-xl);
+}
+
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.process-step__num {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--purple-mid);
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.process-step__label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+
+.process-step__desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 10rem;
+}
+
+@media (max-width: 768px) {
+  .process__steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  .process__steps::before {
+    top: 0;
+    bottom: 0;
+    left: 1.5rem;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .process-step {
+    flex-direction: row;
+    text-align: left;
+    gap: var(--space-md);
+  }
+  .process-step__num { flex-shrink: 0; }
+}
+
+/* ═══════════════════════════════════════
+   EQUIPMENT
+   ═══════════════════════════════════════ */
+.equipment__list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md);
+}
+
+.equip-item {
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  background: oklch(26% 0.06 280);
+  border-radius: 10px;
+  transition: transform var(--duration-fast), background var(--duration-fast);
+}
+
+.equip-item:hover {
+  transform: translateY(-3px);
+  background: oklch(30% 0.08 278);
+}
+
+.equip-item__icon {
+  font-size: 1.8rem;
+  margin-bottom: var(--space-sm);
+}
+
+.equip-item__name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: oklch(92% 0.01 278);
+  margin-bottom: 0.25rem;
+}
+
+.equip-item__desc {
+  font-size: 0.75rem;
+  color: oklch(62% 0.02 278);
+}
+
+@media (max-width: 768px) {
+  .equipment__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .equipment__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════
+   CTA SECTION
+   ═══════════════════════════════════════ */
+.cta-section {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 100%, oklch(90% 0.04 278 / 0.5), transparent),
+    var(--bg);
+}
+
+.cta-section__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--ink);
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+}
+
+.cta-section__desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xl);
+  max-width: 32rem;
+  margin-inline: auto;
+  font-weight: 300;
+}
+
+.cta-section .btn-primary {
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+}
+
+/* ═══════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════ */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.contact-info__item {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.contact-info__item + .contact-info__item {
+  margin-top: var(--space-lg);
+}
+
+.contact-info__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 8px;
+  background: var(--purple-wash);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--purple-mid);
+  font-size: 1rem;
+}
+
+.contact-info__label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-label);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.contact-info__value {
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+  transition: border-color var(--duration-fast);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--purple-light);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.form-submit {
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+  .contact__grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+.footer {
+  background: var(--purple-deep);
+  padding: var(--space-xl) 0;
+  color: oklch(62% 0.02 278);
+  font-size: 0.82rem;
+}
+
+.footer__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.footer__copy {
+  line-height: 1.6;
+}
+
+.footer__links {
+  display: flex;
+  gap: var(--space-lg);
+  list-style: none;
+}
+
+.footer__links a {
+  color: oklch(62% 0.02 278);
+  transition: color var(--duration-fast);
+}
+
+.footer__links a:hover {
+  color: var(--gold-base);
+}
+
+/* ═══════════════════════════════════════
+   CERTIFICATE BADGES
+   ═══════════════════════════════════════ */
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  background: oklch(26% 0.06 280);
+  color: var(--gold-base);
+  border: 1px solid oklch(35% 0.06 278);
+}
+
+.certs-row {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ NAV ════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="#" class="nav__brand">
+      <div class="nav__logo">雅</div>
+      <div class="nav__name">
+        雅信精密鑄造
+        <span>Yea Shinn Precision Casting</span>
+      </div>
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#about">關於雅信</a></li>
+      <li><a href="#products">產品</a></li>
+      <li><a href="#process">製程</a></li>
+      <li><a href="#equipment">設備</a></li>
+      <li><a href="#contact">聯絡</a></li>
+      <li><a href="#contact" class="nav__cta">詢價</a></li>
+    </ul>
+    <button class="nav__mobile-toggle" id="mobileToggle" aria-label="選單">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════ HERO ════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal">Since 1987</p>
+      <h1 class="hero__title reveal reveal-delay-1">
+        近四十年的精密，<br>鑄造每一個<em>關鍵零件</em>
+      </h1>
+      <p class="hero__sub reveal reveal-delay-2">
+        雅信以脫蠟精密鑄造法，為全球客戶生產不銹鋼、碳鋼、合金鋼零件。從航太國防到精密機械，我們交付的不只是零件，是品質的承諾。
+      </p>
+      <div class="hero__actions reveal reveal-delay-3">
+        <a href="#contact" class="btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          立即詢價
+        </a>
+        <a href="#about" class="btn-secondary">
+          認識雅信
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ TRUST BAR ════════════════ -->
+<section class="trust">
+  <div class="container">
+    <div class="trust__grid">
+      <div class="reveal">
+        <div class="trust__item-number">38</div>
+        <div class="trust__item-label">年製造經驗</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="trust__item-number">ISO 9001</div>
+        <div class="trust__item-label">品質管理認證</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="trust__item-number">8+</div>
+        <div class="trust__item-label">產業領域服務</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="trust__item-number">4</div>
+        <div class="trust__item-label">材質系列</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ ABOUT ════════════════ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__eyebrow">About Us</p>
+      <h2 class="section__title">雅致脫俗，信譽保證</h2>
+      <p class="section__desc">雅信鑄造自 1987 年創立以來，以脫蠟鑄造法精密生產各式零件，持續精進品質與技術，建構完整的生產體系。</p>
+    </div>
+    <div class="about__grid">
+      <div class="about__timeline reveal">
+        <div class="timeline-item">
+          <span class="timeline-item__year">1987</span>
+          <span class="timeline-item__text">創立於新竹縣新豐鄉</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-item__year">1994</span>
+          <span class="timeline-item__text">擴遷新竹工業區中華路</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-item__year">2003</span>
+          <span class="timeline-item__text">通過 ISO 9001:2000 品質管理認證</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-item__year">2010</span>
+          <span class="timeline-item__text">擴遷新竹工業區光復南路現址</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-item__year">2011</span>
+          <span class="timeline-item__text">通過 ISO 9001:2008 認證</span>
+        </div>
+      </div>
+      <div class="about__values reveal reveal-delay-2">
+        <div class="about__values-title">品質承諾</div>
+        <div class="value-item">
+          <div class="value-item__icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="value-item__content">
+            <h4>服務客戶</h4>
+            <p>依據客戶的要求，提供令客戶滿意的服務</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-item__icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="value-item__content">
+            <h4>創造利潤</h4>
+            <p>持續改善品質，追求公司之最大利潤</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-item__icon">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="value-item__content">
+            <h4>全員參與</h4>
+            <p>說寫做一致，全員參與品質改善</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ PRODUCTS ════════════════ -->
+<section class="section section--alt" id="products">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__eyebrow">Products</p>
+      <h2 class="section__title">橫跨八大產業的精密零件</h2>
+      <p class="section__desc">從精密工藝品到國防武器，我們具備萬種以上零件的生產經驗。</p>
+    </div>
+    <div class="products__grid">
+      <div class="product-card reveal">
+        <div class="product-card__icon">&#9881;</div>
+        <div class="product-card__name">機械零件</div>
+        <div class="product-card__desc">精密機械用鑄造零組件，高尺寸精度與表面品質</div>
+      </div>
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-card__icon">&#9951;</div>
+        <div class="product-card__name">汽機車零件</div>
+        <div class="product-card__desc">引擎、傳動及底盤系統精密鑄件</div>
+      </div>
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-card__icon">&#9764;</div>
+        <div class="product-card__name">武器國防零件</div>
+        <div class="product-card__desc">符合嚴格規格的國防等級零組件</div>
+      </div>
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-card__icon">&#9878;</div>
+        <div class="product-card__name">閥類零件</div>
+        <div class="product-card__desc">泵浦、壓縮機閥及各式流體控制元件</div>
+      </div>
+      <div class="product-card reveal reveal-delay-4">
+        <div class="product-card__icon">&#9874;</div>
+        <div class="product-card__name">五金零件</div>
+        <div class="product-card__desc">高精度五金鑄造件，廣泛應用於各產業</div>
+      </div>
+      <div class="product-card reveal reveal-delay-5">
+        <div class="product-card__icon">&#8802;</div>
+        <div class="product-card__name">氣動工具零件</div>
+        <div class="product-card__desc">氣動工具核心部件，耐磨耐用</div>
+      </div>
+      <div class="product-card reveal reveal-delay-6">
+        <div class="product-card__icon">&#10070;</div>
+        <div class="product-card__name">針車零件</div>
+        <div class="product-card__desc">縫紉機械用高精度鑄造零件</div>
+      </div>
+      <div class="product-card reveal reveal-delay-7">
+        <div class="product-card__icon">&#10023;</div>
+        <div class="product-card__name">工藝品零件</div>
+        <div class="product-card__desc">精緻工藝品鑄造，兼具美感與精度</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ PROCESS ════════════════ -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__eyebrow">Process</p>
+      <h2 class="section__title">脫蠟精密鑄造流程</h2>
+      <p class="section__desc">每一個步驟都經過嚴格控制，確保成品的尺寸精度與材質品質。</p>
+    </div>
+    <div class="process__steps">
+      <div class="process-step reveal">
+        <div class="process-step__num">1</div>
+        <div>
+          <div class="process-step__label">蠟模製作</div>
+          <div class="process-step__desc">射蠟成型，製作與成品相同形狀的蠟模</div>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step__num">2</div>
+        <div>
+          <div class="process-step__label">殼模製作</div>
+          <div class="process-step__desc">反覆沾漿淋砂，建構耐高溫陶瓷殼模</div>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step__num">3</div>
+        <div>
+          <div class="process-step__label">脫蠟澆鑄</div>
+          <div class="process-step__desc">高溫脫蠟後注入熔融金屬液</div>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step__num">4</div>
+        <div>
+          <div class="process-step__label">後處理加工</div>
+          <div class="process-step__desc">切割、研磨、熱處理及表面處理</div>
+        </div>
+      </div>
+      <div class="process-step reveal reveal-delay-4">
+        <div class="process-step__num">5</div>
+        <div>
+          <div class="process-step__label">品質檢驗</div>
+          <div class="process-step__desc">多重檢驗確保尺寸及材質符合規格</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ MATERIALS + EQUIPMENT ════════════════ -->
+<section class="section section--dark" id="equipment">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__eyebrow">Capabilities</p>
+      <h2 class="section__title">材質與檢驗能力</h2>
+      <p class="section__desc">四大材質系列搭配專業分析設備，確保每一批次的品質穩定可靠。</p>
+    </div>
+
+    <div class="materials__row reveal">
+      <span class="material-tag">不銹鋼 Stainless Steel</span>
+      <span class="material-tag">碳鋼 Carbon Steel</span>
+      <span class="material-tag">合金鋼 Alloy Steel</span>
+      <span class="material-tag">特殊合金鋼 Special Alloy</span>
+    </div>
+
+    <div class="certs-row reveal reveal-delay-1">
+      <span class="cert-badge">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        ISO 9001 認證
+      </span>
+    </div>
+
+    <div class="equipment__list reveal reveal-delay-2" style="margin-top: var(--space-2xl);">
+      <div class="equip-item">
+        <div class="equip-item__icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="equip-item__name">分光儀</div>
+        <div class="equip-item__desc">材質成分精密分析</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-item__icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="equip-item__name">立式投影機</div>
+        <div class="equip-item__desc">外觀尺寸量測</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-item__icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10"/><path d="M9 16v4"/><path d="M15 16v4"/></svg>
+        </div>
+        <div class="equip-item__name">臥式投影機</div>
+        <div class="equip-item__desc">輪廓精密比對</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-item__icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <div class="equip-item__name">硬度機</div>
+        <div class="equip-item__desc">材料硬度測試</div>
+      </div>
+      <div class="equip-item">
+        <div class="equip-item__icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </div>
+        <div class="equip-item__name">電子顯微鏡</div>
+        <div class="equip-item__desc">微觀結構觀察</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CTA ════════════════ -->
+<section class="cta-section">
+  <div class="container reveal">
+    <h2 class="cta-section__title">有零件需求？讓我們聊聊</h2>
+    <p class="cta-section__desc">無論您需要小量試製或大量生產，雅信都能提供最適合的精密鑄造方案。</p>
+    <a href="#contact" class="btn-primary">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      立即詢價
+    </a>
+  </div>
+</section>
+
+<!-- ════════════════ CONTACT ════════════════ -->
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div class="section__header reveal">
+      <p class="section__eyebrow">Contact</p>
+      <h2 class="section__title">聯絡我們</h2>
+      <p class="section__desc">歡迎來電、來信或填寫表單，我們將盡快回覆您。</p>
+    </div>
+    <div class="contact__grid">
+      <div class="reveal">
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">地址</div>
+            <div class="contact-info__value">新竹縣湖口鄉光復南路 4 號</div>
+          </div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">電話</div>
+            <div class="contact-info__value">+886-3-597-8167</div>
+          </div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">電子信箱</div>
+            <div class="contact-info__value">yea.shinn@msa.hinet.net</div>
+          </div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          </div>
+          <div>
+            <div class="contact-info__label">傳真</div>
+            <div class="contact-info__value">+886-3-597-8683</div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal reveal-delay-2" onsubmit="event.preventDefault(); alert('感謝您的詢價，我們將盡快回覆！');">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">姓名 / 公司名稱</label>
+            <input type="text" id="name" placeholder="您的姓名或公司名稱" required>
+          </div>
+          <div class="form-field">
+            <label for="email">電子信箱</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="subject">需求類型</label>
+          <select id="subject">
+            <option value="">請選擇</option>
+            <option>新產品詢價</option>
+            <option>現有產品報價</option>
+            <option>技術諮詢</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="message">詢價內容</label>
+          <textarea id="message" placeholder="請描述您的零件需求，包含材質、數量、尺寸等資訊..."></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn-primary">
+            送出詢價
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__copy">
+      &copy; 2026 雅信鑄造股份有限公司 Yea Shinn Precision Casting Co., Ltd.<br>
+      新竹縣湖口鄉光復南路 4 號
+    </div>
+    <ul class="footer__links">
+      <li><a href="#about">關於雅信</a></li>
+      <li><a href="#products">產品</a></li>
+      <li><a href="#contact">聯絡我們</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- ════════════════ SCRIPTS ════════════════ -->
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Mobile menu
+const toggle = document.getElementById('mobileToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('open');
+  links.classList.toggle('mobile-open');
+});
+
+// Close mobile menu on link click
+links.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    toggle.classList.remove('open');
+    links.classList.remove('mobile-open');
+  });
+});
+</script>
+</body>
+</html>
